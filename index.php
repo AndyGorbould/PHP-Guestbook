@@ -21,6 +21,14 @@
 </head>
 <body>
     <h1>PHP Guestbook</h1>
+    <form action="" method="POST">
+        NAME: <input type="text" id="name"/>
+        TITLE: <input type="text" id="title"/>
+        MESSAGE: <input type="text" id="message"/>
+    </form>
+
+
+    <div id="taget">THIS IS WHERE THE MESSAGES WILL GO (hopefully)</div>
     
 </body>
 </html>
