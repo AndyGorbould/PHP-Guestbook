@@ -1,5 +1,8 @@
 <?php
-require('./message.php')
+require('./Post.php')
+// require('./messageload.php') // methods for:  get all messages from .txt -&- save in .txt
+// serialize to save
+// unserialize to get (& display)
 
 
 
@@ -77,7 +80,8 @@ require('./message.php')
 
     <!-- Content -->
     <div id="target">THIS IS WHERE THE MESSAGES WILL GO (hopefully)</div>
-    <?php require('./messages.txt'); ?>
+    <?php require('./messages.txt'); ?> 
+                <!-- // this shoule be postloader -->
 
     <!-- Footer -->
     <?php include('./view/footer.php') ?>

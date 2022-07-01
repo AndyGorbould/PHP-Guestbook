@@ -13,6 +13,7 @@
 - file_put_contents() for storing the messages on the system
 - json_encode() or serialize() string conversion of the array
 - include('filename.php') will insert that partial into html (header/footer in this case)
+- all properties datatype string
 
 
 ### Must Haves:
