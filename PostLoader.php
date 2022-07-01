@@ -1,19 +1,13 @@
 <?php
 class PostLoader
 {
-        private const $file = './messages.txt'; // why redlines?
-        private array $fileData = [];
-
-            // CONSTRUCT
-    public function __construct($fileData)
-	{
-		$this->fileData = $fileData;
-	}
-
-    public function savePost($currentMessage)
+    public function savePost(Post $post)
     { // (file put, serialize)
+        $file = './messages.txt';
+        file_get_contents($file);
+        $file .= $post->getMessage();
         $fileData = serialize($this->fileData)
-        file_put_contents($file, $this->fileData[]); // why redline?
+        file_put_contents($file, $fileData); // why redline?
     }
 
     public function loadPost()

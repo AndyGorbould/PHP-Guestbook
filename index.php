@@ -1,5 +1,6 @@
 <?php
-require('./Post.php')
+require('./Post.php');
+require('./PostLoader.php');
 // require('./messageload.php') // methods for:  get all messages from .txt -&- save in .txt
 // serialize to save
 // unserialize to get (& display)
