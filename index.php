@@ -1,9 +1,32 @@
 <?php
+require('./message.php')
+
+// $file = './messages.txt';
+// // Open the file to get existing content
+// $current = file_get_contents($file);
+// // Append a new person to the file
+// $current .= "John Smith\n";
+// // Write the contents back to the file
+// file_put_contents($file, $current);
 
 
 
 
+if (isset($_POST['submit'])) {
+    $name = $_POST['name'];
+    $title = $_POST['title'];
+    $message = $_POST['message'];
+    $time = $_POST['name'];
+    $currentMessage = new Message($name, $title, $message, $time);
+    echo $currentMessage; // 
 
+    // this probably won't work, but let's find out
+    $currentMessageSerialized = serialize($currentMessage);
+    $file = './messages.txt';
+    $fileData = file_get_contents($file);
+    $fileData .= $currentMessage;
+    file_put_contents($file, $fileData);
+}
 
 
 
@@ -25,10 +48,11 @@
         NAME: <input type="text" id="name"/>
         TITLE: <input type="text" id="title"/>
         MESSAGE: <input type="text" id="message"/>
+        <button id="submit">SUBMIT</button>
     </form>
 
 
-    <div id="taget">THIS IS WHERE THE MESSAGES WILL GO (hopefully)</div>
+    <div id="target">THIS IS WHERE THE MESSAGES WILL GO (hopefully)</div>
     
 </body>
 </html>
