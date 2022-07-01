@@ -66,8 +66,11 @@ require('./Post.php')
         $name = $_POST['name'];
         $title = $_POST['title'];
         $message = $_POST['message'];
-        $time = $_POST['name'];
+        // grab the time!!
+        date_default_timezone_set('Europe/Amsterdam');
+        $time = date("h:i:s");
         $currentMessage = new Message($name, $title, $message, $time);
+        $this->PostLoader->savePost($this->currentMessage);
 
         // this probably won't work, but let's find out
         $currentMessageSerialized = serialize($currentMessage);
