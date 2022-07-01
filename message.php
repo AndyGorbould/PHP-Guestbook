@@ -1,5 +1,7 @@
 <?php
 
+use Message as GlobalMessage;
+
 class Message {
 
     // PROPERTIES
@@ -44,6 +46,30 @@ class Message {
     }
     public function setTime($time) {
         $this->time = $time;
+    }
+        // Serialize, Unserialize, Connect
+    ////////////////////////////
+    private function connect()
+    {
+        $this->link = new Message($this->name, $this->title, $this->message, $this->time);
+    }
+    public function __serialize(): array
+    {
+        return [
+          'name' => $this->name,
+          'title' => $this->title,
+          'message' => $this->message,
+          'time' => $this->time,
+        ];
+    }
+    public function __unserialize(array $data): void
+    {
+        $this->name = $data['name'];
+        $this->title = $data['title'];
+        $this->message = $data['message'];
+        $this->time = $data['time'];
+
+        $this->connect();
     }
 }
 

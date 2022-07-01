@@ -1,6 +1,8 @@
 <?php
 require('./message.php')
 
+
+
 // $file = './messages.txt';
 // // Open the file to get existing content
 // $current = file_get_contents($file);
@@ -12,21 +14,21 @@ require('./message.php')
 
 
 
-if (isset($_POST['submit'])) {
-    $name = $_POST['name'];
-    $title = $_POST['title'];
-    $message = $_POST['message'];
-    $time = $_POST['name'];
-    $currentMessage = new Message($name, $title, $message, $time);
-    echo $currentMessage; // 
+// if (isset($_POST['submit'])) {
+//     $name = $_POST['name'];
+//     $title = $_POST['title'];
+//     $message = $_POST['message'];
+//     $time = $_POST['name'];
+//     $currentMessage = new Message($name, $title, $message, $time);
+//     echo $currentMessage; // 
 
-    // this probably won't work, but let's find out
-    $currentMessageSerialized = serialize($currentMessage);
-    $file = './messages.txt';
-    $fileData = file_get_contents($file);
-    $fileData .= $currentMessage;
-    file_put_contents($file, $fileData);
-}
+//     // this probably won't work, but let's find out
+//     $currentMessageSerialized = serialize($currentMessage);
+//     $file = './messages.txt';
+//     $fileData = file_get_contents($file);
+//     $fileData .= $currentMessage;
+//     file_put_contents($file, $fileData);
+// }
 
 
 
@@ -36,24 +38,50 @@ if (isset($_POST['submit'])) {
 <!-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --  -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PHP Guestbook</title>
 </head>
+
 <body>
-    <h1>PHP Guestbook</h1>
+    <!-- Header -->
+    <?php include('./view/header.php') ?>
+
+    <!-- Form -->
     <form action="" method="POST">
-        NAME: <input type="text" id="name"/>
-        TITLE: <input type="text" id="title"/>
-        MESSAGE: <input type="text" id="message"/>
+        NAME: <input type="text" id="name" />
+        TITLE: <input type="text" id="title" />
+        MESSAGE: <input type="text" id="message" />
         <button id="submit">SUBMIT</button>
     </form>
+    <!-- Form processing -->
+    <?php
+    if (isset($_POST['submit'])) {
+        $name = $_POST['name'];
+        $title = $_POST['title'];
+        $message = $_POST['message'];
+        $time = $_POST['name'];
+        $currentMessage = new Message($name, $title, $message, $time);
 
+        // this probably won't work, but let's find out
+        $currentMessageSerialized = serialize($currentMessage);
+        $file = './messages.txt';
+        $fileData = file_get_contents($file);
+        $fileData .= $currentMessage;
+        file_put_contents($file, $fileData);
+    }
+    ?>
 
+    <!-- Content -->
     <div id="target">THIS IS WHERE THE MESSAGES WILL GO (hopefully)</div>
-    
+    <?php require('./messages.txt'); ?>
+
+    <!-- Footer -->
+    <?php include('./view/footer.php') ?>
 </body>
+
 </html>
 <!-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --  -->
