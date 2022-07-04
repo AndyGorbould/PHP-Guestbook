@@ -50,7 +50,7 @@ require_once('./PostLoader.php'); // methods for:  get all messages from .txt -&
     $load = new PostLoader;
     $loaded = $load->loadPost();       /// how to display with keys??
     // print_r($loaded);
-    foreach($loaded as $singlePost) {
+    foreach(array_reverse($loaded) as $singlePost) {
         echo '<p class="displayName">Name: ';
         echo $singlePost->getName();
         echo '</p></br>';
