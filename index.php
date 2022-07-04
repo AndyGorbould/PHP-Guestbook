@@ -14,6 +14,7 @@ require_once('./PostLoader.php'); // methods for:  get all messages from .txt -&
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PHP Guestbook</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -36,7 +37,7 @@ require_once('./PostLoader.php'); // methods for:  get all messages from .txt -&
         
         // grab the time!!
         date_default_timezone_set('Europe/Amsterdam');
-        $time = date("h:i:s");
+        $time = date("D.d.F.Y");
         $currentMessage = new Post($name, $title, $message, $time);
         // $this->PostLoader->savePost($this->currentMessage);
         $save = new PostLoader;
@@ -49,24 +50,30 @@ require_once('./PostLoader.php'); // methods for:  get all messages from .txt -&
     <?php
     $load = new PostLoader;
     $loaded = $load->loadPost();       /// how to display with keys??
-    // print_r($loaded);
+
+    
     foreach(array_reverse($loaded) as $singlePost) {
-        echo '<p class="displayName">Name: ';
-        echo $singlePost->getName();
-        echo '</p></br>';
-
-        echo '<p class="displayTitle">Title: ';
-        echo $singlePost->getTitle();
-        echo '</p></br>';
-
-        echo '<p class="displayMessage">Message: ';
-        echo $singlePost->getMessage();
-        echo '</p></br>';
-
-        echo '<p class="displayTime">Time posted: ';
-        echo $singlePost->getTime();
-        echo '</p></br>';
-    }
+    
+            echo '<div class="displayBox">'; // create div for each
+    
+            echo '<p class="displayName">Name: ';
+            echo $singlePost->getName();
+            echo '</p>';
+    
+            echo '<p class="displayTitle">Title: ';
+            echo $singlePost->getTitle();
+            echo '</p></br>';
+    
+            echo '<p class="displayMessage">Message: ';
+            echo $singlePost->getMessage();
+            echo '</p></br>';
+    
+            echo '<p class="displayTime">Time posted: ';
+            echo $singlePost->getTime();
+            echo '</p></br>';
+    
+            echo '</div>'; // close div tag
+        }
     ?> 
 
     <!-- Footer -->
