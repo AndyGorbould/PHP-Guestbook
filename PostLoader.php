@@ -4,24 +4,26 @@ class PostLoader
     public function savePost(Post $post)
     { // (file put, serialize)
         $file = './messages.txt';
-        file_get_contents($file);
-        $file .= $post->getMessage();
-        $fileData = serialize($this->fileData)
-        file_put_contents($file, $fileData); // why redline?
+        $fileGet = file_get_contents($file);
+        $fileGetDecoded = json_decode($fileGet);
+        $fileGetDecodedEncoded = json_decode(json_encode($fileGetDecoded), true);
+        $postArray = array('name' => $post->getName(), 'title' => $post->getTitle(), 'message' => $post->getMessage(), 'time' => $post->getTime());
+        $fileGetDecodedEncoded[] = $postArray;
+        $encodedArray = json_encode([$fileGetDecodedEncoded]);
+        // var_dump($encodedArray);
+        file_put_contents($file, $encodedArray);
     }
 
     public function loadPost()
     { // (file get, unserialize)
-        file_get_contents($file);
+        include('messages.txt');
+        $stdClassPosts = json_decode(file_get_contents('./messages.txt'));
+        $posts = [];
+        foreach ($stdClassPosts as $stdClassPost) {
+            // new Post($stdClassPost['name'], $stdClassPost['title'], $stdClassPost['message'], $stdClassPost['time']);
+            $posts[] = new Post($stdClassPost['name'], $stdClassPost['title'], $stdClassPost['message'], $stdClassPost['time']);
+        }
+        return $posts;
+        // var_dump($posts['name']);
     }
 }
-
-
-
-
-// $currentMessageSerialized = serialize($currentMessage);
-//         $file = './messages.txt';
-//         $fileData = file_get_contents($file);
-//         $fileData .= $currentMessage;
-//         file_put_contents($file, $fileData);
-    

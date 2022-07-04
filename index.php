@@ -1,40 +1,6 @@
 <?php
-require('./Post.php');
-require('./PostLoader.php');
-// require('./messageload.php') // methods for:  get all messages from .txt -&- save in .txt
-// serialize to save
-// unserialize to get (& display)
-
-
-
-// $file = './messages.txt';
-// // Open the file to get existing content
-// $current = file_get_contents($file);
-// // Append a new person to the file
-// $current .= "John Smith\n";
-// // Write the contents back to the file
-// file_put_contents($file, $current);
-
-
-
-
-// if (isset($_POST['submit'])) {
-//     $name = $_POST['name'];
-//     $title = $_POST['title'];
-//     $message = $_POST['message'];
-//     $time = $_POST['name'];
-//     $currentMessage = new Message($name, $title, $message, $time);
-//     echo $currentMessage; // 
-
-//     // this probably won't work, but let's find out
-//     $currentMessageSerialized = serialize($currentMessage);
-//     $file = './messages.txt';
-//     $fileData = file_get_contents($file);
-//     $fileData .= $currentMessage;
-//     file_put_contents($file, $fileData);
-// }
-
-
+require_once('./Post.php');
+require_once('./PostLoader.php'); // methods for:  get all messages from .txt -&- save in .txt
 
 ?>
 
@@ -55,11 +21,11 @@ require('./PostLoader.php');
     <?php include('./view/header.php') ?>
 
     <!-- Form -->
-    <form action="" method="POST">
-        NAME: <input type="text" id="name" />
-        TITLE: <input type="text" id="title" />
-        MESSAGE: <input type="text" id="message" />
-        <button id="submit">SUBMIT</button>
+    <form method="POST">
+        NAME: <input type="text" id="name" name="name" /></br>
+        TITLE: <input type="text" id="title" name="title" /></br>
+        MESSAGE: <input type="text" id="message" name="message" /></br>
+        <button id="submit" name="submit">SUBMIT</button>
     </form>
     <!-- Form processing -->
     <?php
@@ -67,25 +33,23 @@ require('./PostLoader.php');
         $name = $_POST['name'];
         $title = $_POST['title'];
         $message = $_POST['message'];
+        
         // grab the time!!
         date_default_timezone_set('Europe/Amsterdam');
         $time = date("h:i:s");
-        $currentMessage = new Message($name, $title, $message, $time);
-        $this->PostLoader->savePost($this->currentMessage);
-
-        // this probably won't work, but let's find out
-        $currentMessageSerialized = serialize($currentMessage);
-        $file = './messages.txt';
-        $fileData = file_get_contents($file);
-        $fileData .= $currentMessage;
-        file_put_contents($file, $fileData);
+        $currentMessage = new Post($name, $title, $message, $time);
+        // $this->PostLoader->savePost($this->currentMessage);
+        $save = new PostLoader;
+        $save->savePost($currentMessage);
     }
     ?>
 
     <!-- Content -->
-    <div id="target">THIS IS WHERE THE MESSAGES WILL GO (hopefully)</div>
-    <?php require('./messages.txt'); ?> 
-                <!-- // this shoule be postloader -->
+    <div id="target">Previous Messages:</div>
+    <?php
+    $load = new PostLoader;
+    $load->loadPost();
+    ?> 
 
     <!-- Footer -->
     <?php include('./view/footer.php') ?>
