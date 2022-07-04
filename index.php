@@ -51,14 +51,21 @@ require_once('./PostLoader.php'); // methods for:  get all messages from .txt -&
     $loaded = $load->loadPost();       /// how to display with keys??
     // print_r($loaded);
     foreach($loaded as $singlePost) {
+        echo '<p class="displayName">Name: ';
         echo $singlePost->getName();
-        echo '</br>';
+        echo '</p></br>';
+
+        echo '<p class="displayTitle">Title: ';
         echo $singlePost->getTitle();
-        echo '</br>';
+        echo '</p></br>';
+
+        echo '<p class="displayMessage">Message: ';
         echo $singlePost->getMessage();
-        echo '</br>';
+        echo '</p></br>';
+
+        echo '<p class="displayTime">Time posted: ';
         echo $singlePost->getTime();
-        echo '</br>';
+        echo '</p></br>';
     }
     ?> 
 
