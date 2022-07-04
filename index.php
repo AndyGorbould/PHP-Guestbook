@@ -48,7 +48,18 @@ require_once('./PostLoader.php'); // methods for:  get all messages from .txt -&
     <div id="target">Previous Messages:</div>
     <?php
     $load = new PostLoader;
-    $load->loadPost();
+    $loaded = $load->loadPost();       /// how to display with keys??
+    // print_r($loaded);
+    foreach($loaded as $singlePost) {
+        echo $singlePost->getName();
+        echo '</br>';
+        echo $singlePost->getTitle();
+        echo '</br>';
+        echo $singlePost->getMessage();
+        echo '</br>';
+        echo $singlePost->getTime();
+        echo '</br>';
+    }
     ?> 
 
     <!-- Footer -->
